@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+
+<html lang="pt-br">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>GAAC</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+
+    <style>
+
+
+        body{
+
+            margin-top: 60px;
+
+            margin-bottom: 60px;
+
+        }
+
+        .card:hover{
+
+            cursor: pointer;
+        }
+
+        .borda-card{
+
+            border-left: 2px solid #17a2b8;
+
+        }
+
+        .card-selecionado{
+
+            cursor: pointer;
+
+            border: 2px solid #007bff;
+
+        }
+
+        .tabela-cursor{
+
+            cursor: pointer;
+
+        }
+
+        .tabela-selecionada{
+
+            color: #212529;
+
+            background-color: rgba(0,0,0,.075);
+
+        }
+
+        .nao-quebra-tabela{
+
+            white-space: nowrap;
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-xl navbar-dark bg-dark fixed-top">
+
+        <a class="navbar-brand" href="#"><i class="far fa-file mr-1"></i>Gaac</a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#cabecalho">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="cabecalho">
+
+          <ul class="navbar-nav mr-auto">
+
+            <li class="nav-item">
+
+              <a class="nav-link" href="#">Home</a>
+
+            </li>
+
+            <li class="nav-item">
+
+              <a class="nav-link" href="#">Administradores Gerais</a>
+
+            </li>
+
+            <li class="nav-item">
+
+                <a class="nav-link" href="#">Cursos</a>
+
+            </li>
+
+            <li class="nav-item active">
+
+                <a class="nav-link" href="#">Tipo dos Cursos</a>
+
+            </li>
+
+            <li class="nav-item">
+
+                <a class="nav-link" href="#">Administradores de Curso</a>
+
+            </li>
+
+            <li class="nav-item">
+
+                <a class="nav-link" href="#">Disciplinas</a>
+
+            </li>
+
+            <li class="nav-item">
+
+                <a class="nav-link" href="#">Professores</a>
+
+            </li>
+
+          </ul>
+
+          <div class="dropdown">
+
+            <button class="btn dropdown-toggle text-white" type="button" id="usuario" data-toggle="dropdown">
+                <i class="fas fa-user mr-1"></i>Thalys Farias
+            </button>
+
+            <div class="dropdown-menu" aria-labelledby="usuario">
+
+                <a class="dropdown-item" href="#"><i class="fas fa-cog mr-1"></i>Configurações</a>
+
+                <div class="dropdown-divider"></div>
+
+                <a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt mr-1"></i>Sair</a>
+            </div>
+
+          </div>
+
+        </div>
+
+    </nav>
+
+    <div class="container-fluid">
+
+        <div class="row justify-content-center">
+
+            <div class="col-12 col-md-11 mb-5">
+
+                <h3 class="text-center mt-4 mb-5">Tipo dos cursos</h3>
+
+                <div class="my-5">
+                    
+                    <button type="button" class="btn btn-info mt-2 mt-lg-0"><i class="fas fa-plus mr-1"></i>Cadastrar</button>
+
+                    <button type="button" class="btn btn-info d-none btn-unico mt-2 mt-lg-0"><i class="fas fa-list mr-1"></i>listar cursos do tipo</button>
+
+                    <button type="button" class="btn btn-info d-none btn-unico mt-2 mt-lg-0"><i class="fas fa-edit mr-1"></i>Alterar</button>
+
+                    <button type="button" class="btn btn-danger d-none btn-multiplo mt-2 mt-lg-0"><i class="fas fa-trash mr-1"></i>Excluir</button>
+
+                </div>
+                
+                <!--Buscas e paginação-->
+
+                <div class="mt-5">
+                                        
+                    <div class="row">
+
+                        <!--campo de busca-->
+
+                        <div class="col-12 col-sm-3">
+
+                            <form class="form-inline">
+
+                                <input type="text" class="form-control form-control-sm mr-1" placeholder="pesquisar por nome">
+
+                                <button type="submit" class="btn btn-outline-primary btn-sm d-none d-lg-block"><i class="fas fa-search"></i>Buscar</button>
+
+                            </form>
+
+                        </div>
+
+                        <!--Paginação-->
+                        <div class="col-2 d-sm-none"></div>
+                        <div class="col-8 col-sm-6  mt-3 mt-sm-0 text-center">
+
+                            <button type="button" class="btn btn-sm"><i class="fas fa-angle-double-left"></i></button>
+
+                            <span>Página 1 de 10</span>
+
+                            <button type="button" class="btn btn-sm"><i class="fas fa-angle-double-right"></i></button>
+
+
+                        </div>
+
+                        <!--Quantidade na tela-->
+
+                        <div class="col-2 col-sm-3 mt-3 mt-sm-0">
+
+                            <form class="form-inline float-right">
+
+                                <label for="qtd" class="mr-2 d-none d-md-block">Exibir: </label>
+
+                                <select id="qtd" class="form-control form-control-sm">
+                                    
+                                    <option value="4">4</option>
+                                    <option value="8">8</option>
+                                    <option value="12">12</option>
+                
+                                </select>
+
+                            </form>
+                            
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <ul class="nav nav-tabs mt-4">
+
+                    <li class="nav-item">
+
+                      <a class="nav-link active" data-toggle="tab" href="#cards"><i class="far fa-id-card mr-1"></i>Cards</a>
+
+                    </li>
+
+                    <li class="nav-item">
+
+                      <a class="nav-link" data-toggle="tab" href="#tabela"><i class="fas fa-table mr-1"></i>Tabela</a>
+
+                    </li>
+
+                </ul>
+
+                <div class="tab-content mt-3">
+
+                    <!--Cards-->
+
+                    <div class="tab-pane fade show active" id="cards">
+                        
+                        <div class="row">
+
+                            <div class="col-12 col-md-6 col-lg-4 col-xl-3 mt-2 d-flex">
+
+                                <div class="card borda-card mt-2 mb-2">
+
+                                    <div class="card-header py-2">
+
+
+                                        <h6 class="d-inline mb-0">Código</h6>
+                                        <span>222</span>
+
+                                    </div>
+
+                                    <div class="card-body">
+
+                                        <h6 class="mb-0 mt-1">Nome</h6>
+                                        <span>Bacharelado</span>
+
+                                        <h6 class="mb-0 mt-3">Descrição</h6>
+                                        <span>Bacharelado é uma formação de nível superior que confere grau de bacharel. Com duração média entre 3 e 6 anos, o curso de bacharelado prepara profissionais generalistas com sólidos conhecimentos sobre a base de uma profissão.</span>
+
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="col-12 col-md-6 col-lg-4 col-xl-3 mt-2 d-flex">
+
+                                <div class="card borda-card mt-2 mb-2">
+
+                                    <div class="card-header py-2">
+
+                                        <h6 class="d-inline mb-0">Código</h6>
+
+                                        <span>333</span>
+
+                                    </div>
+
+                                    <div class="card-body">
+
+                                        <h6 class="mb-0 mt-1">Nome</h6>
+                                        <span>Licenciatura</span>
+
+                                        <h6 class="mb-0 mt-3">Descrição</h6>
+                                        <span>A licenciatura estrutura-se pela formação do bacharel complementada pelas disciplinas pedagógicas, o objetivo fundamental do curso de licenciatura é formar professores como sujeitos de transformação da realidade brasileira, comprometidos com a busca de respostas aos desafios e problemas existentes em nossas escolas, especialmente nas da rede pública.</span>
+
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="col-12 col-md-6 col-lg-4 col-xl-3 mt-2 d-flex">
+
+                                <div class="card borda-card mt-2 mb-2">
+
+                                    <div class="card-header py-2">
+
+                                        <h6 class="d-inline mb-0">Código</h6>
+                                        <span>444</span>
+
+                                    </div>
+
+                                    <div class="card-body">
+
+                                        <h6 class="mb-0 mt-1">Nome</h6>
+                                        <span>Técnico</span>
+
+                                        <h6 class="mb-0 mt-3">Descrição</h6>
+                                        <span>O ensino técnico é um nível de ensino enquadrado no nível médio dos sistemas educativos, referindo-se normalmente a uma educação realizadas em escolas secundárias ou outras instituições que conferem graus académicos ou diplomas profissionais.</span>
+
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="col-12 col-md-6 col-lg-4 col-xl-3 mt-2 d-flex">
+
+                                <div class="card borda-card mt-2 mb-2">
+
+                                    <div class="card-header py-2">
+
+                                        <h6 class="d-inline mb-0">Código</h6>
+                                        <span>555</span>
+
+                                    </div>
+
+                                    <div class="card-body">
+
+                                        <h6 class="mb-0 mt-1">Nome</h6>
+                                        <span>Mestrado</span>
+
+                                        <h6 class="mb-0 mt-3">Descrição</h6>
+                                        <span>Tem como objetivos propiciar a geração de novos conhecimentos através da pesquisa científica e formar pessoal qualificado para o exercício de atividades profissionais, de ensino de nível superior e de pesquisa.</span>
+
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                    
+                    <!--Tabela-->
+
+                    <div class="tab-pane fade" id="tabela">
+
+                        <div class="table-responsive">
+
+                            <table class="table table-sm table-hover my-1">
+
+                                <thead class="thead-light">
+
+                                    <tr class="nao-quebra-tabela">
+
+                                        <th></th>
+                                        
+                                        <th>Código</th>
+
+                                        <th>Nome<i class="fas fa-sort ml-1"></i></th>
+
+                                        <th>Descrição<i class="fas fa-sort ml-1"></i></th>
+
+                                    </tr>
+                                    
+                                </thead>
+
+                                <tbody class="tabela-cursor">
+
+                                    <tr class="nao-quebra-tabela">
+
+                                        <td class="text-center">
+
+                                        </td>
+
+                                        <td>222</td>
+
+                                        <td>Bacharelado</td>
+
+                                        <td>Bacharelado é uma formação de nível superior que confere grau de bacharel. Com duração média entre 3 e 6 anos, o curso de bacharelado prepara profissionais generalistas com sólidos conhecimentos sobre a base de uma profissão.</td>
+
+                                    </tr>
+
+                                    <tr class="nao-quebra-tabela">
+
+                                        <td class="text-center">
+
+                                        </td>
+
+                                        <td>333</td>
+
+                                        <td>Licenciatura</td>
+
+                                        <td>A licenciatura estrutura-se pela formação do bacharel complementada pelas disciplinas pedagógicas, o objetivo fundamental do curso de licenciatura é formar professores como sujeitos de transformação da realidade brasileira, comprometidos com a busca de respostas aos desafios e problemas existentes em nossas escolas, especialmente nas da rede pública.</td>
+
+                                    </tr>
+
+                                    <tr class="nao-quebra-tabela">
+
+                                        <td class="text-center">
+
+                                        </td>
+
+                                        <td>444</td>
+
+                                        <td>Técnico</td>
+
+                                        <td>O ensino técnico é um nível de ensino enquadrado no nível médio dos sistemas educativos, referindo-se normalmente a uma educação realizadas em escolas secundárias ou outras instituições que conferem graus académicos ou diplomas profissionais.</td>
+
+                                    </tr>
+
+                                    <tr class="nao-quebra-tabela">
+
+                                        <td class="text-center">
+
+                                        </td>
+
+                                        <td>555</td>
+
+                                        <td>Mestrado</td>
+
+                                        <td>Tem como objetivos propiciar a geração de novos conhecimentos através da pesquisa científica e formar pessoal qualificado para o exercício de atividades profissionais, de ensino de nível superior e de pesquisa.</td>
+
+                                    </tr>
+
+                                    <tr class="nao-quebra-tabela">
+
+                                        <td class="text-center">
+
+                                        </td>
+
+                                        <td>333</td>
+
+                                        <td>Licenciatura</td>
+
+                                        <td>A licenciatura estrutura-se pela formação do bacharel complementada pelas disciplinas pedagógicas, o objetivo fundamental do curso de licenciatura é formar professores como sujeitos de transformação da realidade brasileira, comprometidos com a busca de respostas aos desafios e problemas existentes em nossas escolas, especialmente nas da rede pública.</td>
+
+                                    </tr>
+
+                                    <tr class="nao-quebra-tabela">
+
+                                        <td class="text-center">
+
+                                        </td>
+
+                                        <td>222</td>
+
+                                        <td>Bacharelado</td>
+
+                                        <td >Bacharelado é uma formação de nível superior que confere grau de bacharel. Com duração média entre 3 e 6 anos, o curso de bacharelado prepara profissionais generalistas com sólidos conhecimentos sobre a base de uma profissão.</td>
+
+                                    </tr>
+                                    
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+    
+        </div>
+
+    </div>
+
+    <footer class="bg-dark text-white fixed-bottom">
+
+        <p class="text-center my-auto p-3">&copy;2020 - Todos os direitos reservados - Desenvolvido pelo projeto GAAC</p>
+
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
+
+    <script src="https://kit.fontawesome.com/d151290823.js" crossorigin="anonymous"></script>
+    <script src="index.js"></script>
+
+</body>         
+
+</html>
